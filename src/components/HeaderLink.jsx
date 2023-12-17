@@ -1,9 +1,9 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export const HeaderLink = ({ href, text }) => {
   return (
-    <a className="headerLink" href={href}>
+    <Link className="headerLink" to={href}>
       {text}
-    </a>
+    </Link>
   );
 };

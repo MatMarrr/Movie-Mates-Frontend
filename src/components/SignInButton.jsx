@@ -1,5 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SignInButton = () => {
-  return <button className="headerButton">Sign in</button>;
+  let navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate("/login");
+  };
+  return (
+    <button className="headerButton" onClick={handleOnClick}>
+      Sign in
+    </button>
+  );
 };
