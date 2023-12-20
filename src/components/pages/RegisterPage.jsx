@@ -2,8 +2,13 @@ import React from "react";
 import { AuthInput } from "../Input";
 import { AuthButton } from "../AuthButton";
 import { AuthOr } from "../AuthOr";
+import { AuthGoogleButton } from "../AuthGoogleButton";
+import { AuthErrorText } from "../authErrorText";
 
 export const RegisterPage = () => {
+  const registerOnClick = () => {};
+  const googleRegisterOnClick = () => {};
+
   return (
     <div class="authContainer">
       <div className="authBox">
@@ -13,8 +18,10 @@ export const RegisterPage = () => {
         <div className="passwordInputContainer">
           <AuthInput placeholder={"Password"} />
         </div>
-        <AuthButton value="Register" />
+        <AuthErrorText value="Login cannot be empty" />
+        <AuthButton value="Register" onClick={registerOnClick} />
         <AuthOr />
+        <AuthGoogleButton onClick={googleRegisterOnClick} />
       </div>
     </div>
   );
