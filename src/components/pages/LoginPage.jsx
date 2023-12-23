@@ -7,10 +7,9 @@ import { AuthErrorText } from "../authErrorText";
 
 export const LoginPage = () => {
   const signInOnClick = () => {};
-  const googleSignInOnClick = () => {};
 
   return (
-    <div class="authContainer">
+    <div className="authContainer">
       <div className="authBox">
         <h1 className="authHeader">Sign In</h1>
         <AuthInput placeholder={"Login or Email"} />
@@ -20,7 +19,7 @@ export const LoginPage = () => {
         <AuthErrorText value="Login cannot be empty" />
         <AuthButton value="Sign In" onClick={signInOnClick} />
         <AuthOr />
-        <AuthGoogleButton onClick={googleSignInOnClick} />
+        <AuthGoogleButton />
       </div>
     </div>
   );
