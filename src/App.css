@@ -195,7 +195,7 @@ body {
   background-image: url("./public/images/googleLogo.svg");
 }
 
-.gooleAuthText {
+.googleAuthText {
   color: #909090;
   font-family: Roboto;
   font-size: 25px;

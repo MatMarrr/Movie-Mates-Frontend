@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 const userState = atom({
-  key: "cloudLoaderVisibility",
+  key: "userState",
   default: {},
 });
 
