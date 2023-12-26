@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AuthInput } from "../AuthInput";
 import { AuthButton } from "../AuthButton";
 import { AuthOr } from "../AuthOr";
@@ -6,6 +6,7 @@ import { AuthGoogleButton } from "../AuthGoogleButton";
 import { AuthErrorText } from "../authErrorText";
 import { useFormik } from "formik";
 import { loginSchema } from "./../../validationRules/loginSchema";
+import { ShowPasswordButton } from "../ShowPasswordButton";
 
 const getFirstErrorMessage = (errors, touched) => {
   if (touched.identifier && errors.identifier) {
@@ -18,6 +19,8 @@ const getFirstErrorMessage = (errors, touched) => {
 };
 
 export const LoginPage = () => {
+  const [inputType, setInputType] = useState("password");
+
   const loginForm = useFormik({
     initialValues: {
       identifier: "",
@@ -49,10 +52,14 @@ export const LoginPage = () => {
           <AuthInput
             name="password"
             placeholder="Password"
-            type="password"
+            type={inputType}
             onChange={loginForm.handleChange}
             onBlur={loginForm.handleBlur}
             value={loginForm.values.password}
+          />
+          <ShowPasswordButton
+            inputType={inputType}
+            setInputType={setInputType}
           />
         </div>
         {firstErrorMessage && <AuthErrorText value={firstErrorMessage} />}

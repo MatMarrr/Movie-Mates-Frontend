@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AuthInput } from "../AuthInput";
 import { AuthButton } from "../AuthButton";
 import { AuthOr } from "../AuthOr";
@@ -6,6 +6,7 @@ import { AuthGoogleButton } from "../AuthGoogleButton";
 import { AuthErrorText } from "../authErrorText";
 import { useFormik } from "formik";
 import { registerSchema } from "./../../validationRules/registerSchema";
+import { ShowPasswordButton } from "../ShowPasswordButton";
 
 const getFirstErrorMessage = (errors, touched) => {
   if (touched.login && errors.login) {
@@ -21,6 +22,8 @@ const getFirstErrorMessage = (errors, touched) => {
 };
 
 export const RegisterPage = () => {
+  const [inputType, setInputType] = useState("password");
+
   const registerForm = useFormik({
     initialValues: {
       login: "",
@@ -60,10 +63,14 @@ export const RegisterPage = () => {
           <AuthInput
             name="password"
             placeholder="Password"
-            type="password"
+            type={inputType}
             onChange={registerForm.handleChange}
             onBlur={registerForm.handleBlur}
             value={registerForm.values.password}
+          />
+          <ShowPasswordButton
+            inputType={inputType}
+            setInputType={setInputType}
           />
         </div>
         {firstErrorMessage && <AuthErrorText value={firstErrorMessage} />}

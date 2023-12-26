@@ -209,3 +209,18 @@ body {
   font-family: Poppins;
   font-weight: 500;
 }
+
+.passwordEyeIcon {
+  height: 27px;
+  width: 27px;
+  background-size: cover;
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  cursor: pointer;
+}
+
+.passwordInputContainer {
+  display: flex;
+  position: relative;
+}
