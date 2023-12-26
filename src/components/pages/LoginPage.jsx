@@ -1,26 +1,65 @@
 import React from "react";
-import { AuthInput } from "../Input";
+import { AuthInput } from "../AuthInput";
 import { AuthButton } from "../AuthButton";
 import { AuthOr } from "../AuthOr";
 import { AuthGoogleButton } from "../AuthGoogleButton";
 import { AuthErrorText } from "../authErrorText";
+import { useFormik } from "formik";
+import { loginSchema } from "./../../validationRules/loginSchema";
+
+const getFirstErrorMessage = (errors, touched) => {
+  if (touched.identifier && errors.identifier) {
+    return errors.identifier;
+  }
+  if (touched.password && errors.password) {
+    return errors.password;
+  }
+  return "";
+};
 
 export const LoginPage = () => {
-  const signInOnClick = () => {};
+  const loginForm = useFormik({
+    initialValues: {
+      identifier: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
+  const firstErrorMessage = getFirstErrorMessage(
+    loginForm.errors,
+    loginForm.touched
+  );
 
   return (
     <div className="authContainer">
-      <div className="authBox">
+      <form onSubmit={loginForm.handleSubmit} className="authBox">
         <h1 className="authHeader">Sign In</h1>
-        <AuthInput placeholder={"Login or Email"} />
+        <AuthInput
+          name="identifier"
+          placeholder="Login or Email"
+          onChange={loginForm.handleChange}
+          onBlur={loginForm.handleBlur}
+          value={loginForm.values.identifier}
+        />
         <div className="passwordInputContainer">
-          <AuthInput placeholder={"Password"} />
+          <AuthInput
+            name="password"
+            placeholder="Password"
+            type="password"
+            onChange={loginForm.handleChange}
+            onBlur={loginForm.handleBlur}
+            value={loginForm.values.password}
+          />
         </div>
-        <AuthErrorText value="Login cannot be empty" />
-        <AuthButton value="Sign In" onClick={signInOnClick} />
+        {firstErrorMessage && <AuthErrorText value={firstErrorMessage} />}
+        <AuthButton type="submit" value="Sign In" />
         <AuthOr />
         <AuthGoogleButton />
-      </div>
+      </form>
     </div>
   );
 };
