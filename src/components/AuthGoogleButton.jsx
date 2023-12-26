@@ -3,7 +3,8 @@ import React from "react";
 export const AuthGoogleButton = () => {
   const apiURL = import.meta.env.VITE_API_URL;
 
-  const handleOnClick = async () => {
+  const handleOnClick = async (e) => {
+    e.preventDefault();
     window.location.href = `${apiURL}/auth/google`;
   };
 
