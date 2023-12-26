@@ -4,8 +4,13 @@ import { HeaderLink } from "./HeaderLink";
 import { RegisterButton } from "./RegisterButton";
 import { SignInButton } from "./SignInButton";
 import { ProfileImage } from "./ProfileImage";
+import { SignOutButton } from "./SignOutButton";
+import { useRecoilValue } from "recoil";
+import isAuthState from "./../recoilStates/isAuthState";
 
 export const Header = () => {
+  const isAuth = useRecoilValue(isAuthState);
+
   return (
     <div className="header">
       <div className="headerContent">
@@ -15,9 +20,17 @@ export const Header = () => {
         <HeaderLink href="/profile" text="Profile" />
       </div>
       <div className="headerContent">
-        <RegisterButton />
-        <SignInButton />
-        <ProfileImage imageUrl="" initialLetter="M" href="/profile" />
+        {isAuth ? (
+          <>
+            <SignOutButton />
+            <ProfileImage imageUrl="" initialLetter="M" href="/profile" />
+          </>
+        ) : (
+          <>
+            <RegisterButton />
+            <SignInButton />
+          </>
+        )}
       </div>
     </div>
   );

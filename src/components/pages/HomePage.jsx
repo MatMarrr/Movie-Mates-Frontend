@@ -1,13 +1,9 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import tokenState from "./../../recoilStates/tokenState";
 import userState from "./../../recoilStates/userState";
-import isAuthState from "./../../recoilStates/isAuthState";
 
 export const HomePage = () => {
-  const token = useRecoilValue(tokenState);
   const user = useRecoilValue(userState);
-  const isAuth = useRecoilValue(isAuthState);
 
   const divStyle = {
     color: "white",
@@ -18,7 +14,6 @@ export const HomePage = () => {
   return (
     <div style={divStyle}>
       <h1>HomePage</h1>
-      <p>Token: {token}</p>
       <p>User:</p>
       <p>ID: {user.id}</p>
       <p>Login: {user.login}</p>
@@ -28,7 +23,6 @@ export const HomePage = () => {
       <p>Avatar URL: {user.avatar_url}</p>
       <p>Created At: {user.created_at}</p>
       <p>Updated At: {user.updated_at}</p>
-      <p>Is Authenticated: {isAuth ? "Yes" : "No"}</p>
     </div>
   );
 };

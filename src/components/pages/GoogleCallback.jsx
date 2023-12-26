@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import tokenState from "./../../recoilStates/tokenState";
 import userState from "./../../recoilStates/userState";
 import isAuthState from "./../../recoilStates/isAuthState";
 import axios from "axios";
 
 export const GoogleCallback = () => {
-  const setTokenState = useSetRecoilState(tokenState);
   const setUserState = useSetRecoilState(userState);
   const setIsAuthState = useSetRecoilState(isAuthState);
   const navigate = useNavigate();
@@ -19,7 +17,8 @@ export const GoogleCallback = () => {
     const token = params.get("token");
 
     if (token) {
-      setTokenState(token);
+      localStorage.setItem("token", token);
+      setIsAuthState(true);
 
       axios
         .get(`${apiURL}/user`, {
@@ -28,15 +27,15 @@ export const GoogleCallback = () => {
           },
         })
         .then((response) => {
-          setUserState(response.data);
           setIsAuthState(true);
+          setUserState(response.data);
           navigate("/");
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [setTokenState]);
+  }, []);
 
   return null;
 };
