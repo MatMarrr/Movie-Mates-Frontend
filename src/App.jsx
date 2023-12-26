@@ -34,13 +34,20 @@ function App() {
           },
         })
         .then((response) => {
-          setUserState(response.data);
+          if (response.data) {
+            setUserState(response.data);
+          } else {
+            setIsAuthState(false);
+            localStorage.removeItem("token");
+          }
         })
         .catch((error) => {
           console.error(error);
+          setIsAuthState(false);
+          localStorage.removeItem("token");
         });
     }
-  }, [setUserState]);
+  }, [setUserState, setIsAuthState, apiURL]);
 
   return (
     <Router>
