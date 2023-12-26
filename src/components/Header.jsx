@@ -23,7 +23,7 @@ export const Header = () => {
         {isAuth ? (
           <>
             <SignOutButton />
-            <ProfileImage imageUrl="" initialLetter="M" href="/profile" />
+            <ProfileImage href="/profile" />
           </>
         ) : (
           <>

@@ -7,6 +7,11 @@ import { AuthErrorText } from "../authErrorText";
 import { useFormik } from "formik";
 import { registerSchema } from "./../../validationRules/registerSchema";
 import { ShowPasswordButton } from "../ShowPasswordButton";
+import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
+import userState from "./../../recoilStates/userState";
+import isAuthState from "./../../recoilStates/isAuthState";
+import axios from "axios";
 
 const getFirstErrorMessage = (errors, touched) => {
   if (touched.login && errors.login) {
@@ -22,6 +27,10 @@ const getFirstErrorMessage = (errors, touched) => {
 };
 
 export const RegisterPage = () => {
+  const apiURL = import.meta.env.VITE_API_URL;
+  const setUserState = useSetRecoilState(userState);
+  const setIsAuthState = useSetRecoilState(isAuthState);
+  const navigate = useNavigate();
   const [inputType, setInputType] = useState("password");
 
   const registerForm = useFormik({
@@ -32,7 +41,17 @@ export const RegisterPage = () => {
     },
     validationSchema: registerSchema,
     onSubmit: (values) => {
-      console.log(values);
+      axios
+        .post(`${apiURL}/register`, values)
+        .then((response) => {
+          localStorage.setItem("token", response.data.token);
+          setIsAuthState(true);
+          setUserState(response.data.user);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   });
 
