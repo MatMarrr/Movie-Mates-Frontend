@@ -29,7 +29,7 @@ export const GoogleCallback = () => {
         .then((response) => {
           setIsAuthState(true);
           setUserState(response.data);
-          navigate("/");
+          navigate("/home");
         })
         .catch((error) => {
           console.error(error);

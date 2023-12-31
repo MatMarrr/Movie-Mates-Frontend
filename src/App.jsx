@@ -11,9 +11,18 @@ import { ProfilePage } from "./components/pages/ProfilePage";
 import { TrendingPage } from "./components/pages/TrendingPage";
 import { GoogleCallback } from "./components/pages/GoogleCallback";
 import { useSetRecoilState, useRecoilValue } from "recoil";
+import { Navigate } from "react-router-dom";
 import userState from "./recoilStates/userState";
 import isAuthState from "./recoilStates/isAuthState";
 import axios from "axios";
+
+const RequireAuth = ({ Component, isAuth }) => {
+  if (!isAuth) {
+    return <Navigate to="/login" />;
+  }
+
+  return <Component />;
+};
 
 function App() {
   const apiURL = import.meta.env.VITE_API_URL;
@@ -54,12 +63,25 @@ function App() {
       <div>
         <Header />
         <Routes>
-          <Route path="/" element={isAuth ? <HomePage /> : <LandingPage />} />
+          {/* No auth routes*/}
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/google-callback" element={<GoogleCallback />} />
-          <Route path="/trending" element={<TrendingPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+
+          {/* Auth routes*/}
+          <Route
+            path="/home"
+            element={<RequireAuth isAuth={isAuth} Component={HomePage} />}
+          />
+          <Route
+            path="/trending"
+            element={<RequireAuth isAuth={isAuth} Component={TrendingPage} />}
+          />
+          <Route
+            path="/profile"
+            element={<RequireAuth isAuth={isAuth} Component={ProfilePage} />}
+          />
         </Routes>
       </div>
     </Router>

@@ -15,9 +15,13 @@ export const Header = () => {
     <div className="header">
       <div className="headerContent">
         <LogoButton />
-        <HeaderLink href="/" text="Home" />
-        <HeaderLink href="/trending" text="Trending" />
-        <HeaderLink href="/profile" text="Profile" />
+        {isAuth && (
+          <>
+            <HeaderLink href="/home" text="Home" />
+            <HeaderLink href="/trending" text="Trending" />
+            <HeaderLink href="/profile" text="Profile" />
+          </>
+        )}
       </div>
       <div className="headerContent">
         {isAuth ? (

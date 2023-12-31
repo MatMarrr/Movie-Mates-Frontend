@@ -43,7 +43,7 @@ export const LoginPage = () => {
           localStorage.setItem("token", response.data.token);
           setIsAuthState(true);
           setUserState(response.data.user);
-          navigate("/");
+          navigate("/home");
         })
         .catch((error) => {
           console.error(error);
