@@ -16,6 +16,14 @@ import userState from "./recoilStates/userState";
 import isAuthState from "./recoilStates/isAuthState";
 import axios from "axios";
 
+const NoAuthRequired = ({ Component, isAuth }) => {
+  if (isAuth) {
+    return <Navigate to="/home" />;
+  }
+
+  return <Component />;
+};
+
 const RequireAuth = ({ Component, isAuth }) => {
   if (!isAuth) {
     return <Navigate to="/login" />;
@@ -65,8 +73,16 @@ function App() {
         <Routes>
           {/* No auth routes*/}
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/login"
+            element={<NoAuthRequired isAuth={isAuth} Component={LoginPage} />}
+          />
+          <Route
+            path="/register"
+            element={
+              <NoAuthRequired isAuth={isAuth} Component={RegisterPage} />
+            }
+          />
           <Route path="/google-callback" element={<GoogleCallback />} />
 
           {/* Auth routes*/}
