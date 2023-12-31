@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import userState from "./../../recoilStates/userState";
-import FileUpload from "../FileUpload";
+import AvatarUpload from "../AvatarUpload";
 import avatarLoader from "./../../public/images/avatarLoader.svg";
 
 export const ProfilePage = () => {
@@ -10,12 +10,12 @@ export const ProfilePage = () => {
   const initialLetter = user.login ? user.login.charAt(0).toUpperCase() : "?";
 
   const handleImageClick = () => {
-    FileUpload.triggerFileUpload();
+    AvatarUpload.triggerFileUpload();
   };
 
   return (
     <div className="profilePageContainer">
-      <FileUpload />
+      <AvatarUpload />
       {avatarUrl === "loading" || initialLetter === "?" ? (
         <img src={avatarLoader} className="profileImageCircle" alt="Loading" />
       ) : avatarUrl ? (

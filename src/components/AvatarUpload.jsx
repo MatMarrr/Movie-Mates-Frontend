@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { useSetRecoilState } from "recoil";
-import userState from "./../recoilStates/userState";
+import userState from "../recoilStates/userState";
 import axios from "axios";
 
-function FileUpload() {
+function AvatarUpload() {
   const apiURL = import.meta.env.VITE_API_URL;
   const fileInputRef = useRef(null);
   const setUser = useSetRecoilState(userState);
@@ -46,7 +46,7 @@ function FileUpload() {
       }));
 
       const response = await axios.post(
-        `${apiURL}/imgur-upload-image`,
+        `${apiURL}/imgur/upload-image`,
         formData,
         {
           headers: {
@@ -99,7 +99,7 @@ function FileUpload() {
     }
   };
 
-  FileUpload.triggerFileUpload = () => {
+  AvatarUpload.triggerFileUpload = () => {
     fileInputRef.current.click();
   };
 
@@ -110,4 +110,4 @@ function FileUpload() {
   );
 }
 
-export default FileUpload;
+export default AvatarUpload;
