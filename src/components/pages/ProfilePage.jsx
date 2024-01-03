@@ -36,7 +36,7 @@ export const ProfilePage = () => {
         login: "Loading...",
       }));
 
-      await axios.put(
+      await axios.patch(
         `${apiURL}/user/login`,
         { login: changeLogin },
         {

@@ -83,7 +83,7 @@ function AvatarUpload() {
         return;
       }
 
-      await axios.put(
+      await axios.patch(
         `${apiURL}/user/avatar`,
         { avatar_url: avatarUrl },
         {
